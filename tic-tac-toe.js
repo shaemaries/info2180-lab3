@@ -1,11 +1,14 @@
 "use strict";
 
-let activeplayer= "X";
-let tracker=[];
+var activeplayer = "X"
+var tracker=[];
+var activegame= true;
 
 window.onload = function(){
     var board = document.getElementById("board");
-    boardSetup(board);
+    boardSetup(board); 
+   var btn= document.querySelector(".btn");
+   btn.addEventListener('click',restartGame);
 }
 
 function boardSetup(board) {
@@ -23,23 +26,25 @@ function boardSetup(board) {
 
 function squareClick(clickEvent){
     var clickedSquare = clickEvent.target;
+    
+    if (activegame ==true ){
 
-    clickedSquare.classList.add(activeplayer);
-    clickedSquare.textContent=activeplayer;
+        clickedSquare.classList.add(activeplayer);
+        clickedSquare.textContent=activeplayer;
 
-
-      if (!checkWin()){  
-          if (activeplayer=="X"){
-            tracker.push(activeplayer);
-            activeplayer="O";
-            clickedSquare.classList.remove(activeplayer);
-        }
-         else {
-            tracker.push(activeplayer);
-             activeplayer="X";  
-             clickedSquare.classList.remove(activeplayer); 
+        if (!checkWin()){  
+            if (activeplayer=="X"){
+                tracker.push(activeplayer);
+                activeplayer="O";
+                clickedSquare.classList.remove(activeplayer);
+            }
+            else {
+                tracker.push(activeplayer);
+                activeplayer="X";  
+                clickedSquare.classList.remove(activeplayer); 
             }  
-      }
+        }
+    }
 }
 
 function squareMouseOver(overEvent){
@@ -119,13 +124,34 @@ function checkWin(){
 
   if (tracker.length==8){
         var tieMessage= document.getElementById('status');
-        tieMessage.textContent="Game ended in a tie. Try again";
+        tieMessage.textContent="Game ended in a tie. Hit New Game to try again";
+        activegame=false;
     }
 }
 
 
 function winMessage(){
-    var winMessage= document.getElementById('status');
+    var  winMessage= document.getElementById('status');
         winMessage.classList.add('you-won');
         winMessage.textContent="Congratulations! "+ activeplayer+ " is the Winner";
+        activegame=false;
+}
+
+function restartGame(){
+
+    var squareInfo= document.getElementsByClassName("square");
+    for (var i=0; i < squareInfo.length; i++){
+        squareInfo[i].classList.remove('X');
+        squareInfo[i].classList.remove('O');
+        squareInfo[i].textContent="";
+       // console.log(squareInfo)
+    }
+
+    var restartMessage= document.getElementById('status');
+    restartMessage.classList.remove('you-won');
+    restartMessage.textContent="Move your mouse over a square and click to play an X or an O.";
+
+    tracker=[];
+    activegame=true;
+
 }

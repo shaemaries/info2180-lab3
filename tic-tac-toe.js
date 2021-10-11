@@ -7,8 +7,8 @@ var activegame= true;
 window.onload = function(){
     var board = document.getElementById("board");
     boardSetup(board); 
-   var btn= document.querySelector(".btn");
-   btn.addEventListener('click',restartGame);
+    var btn= document.querySelector(".btn");
+    btn.addEventListener('click',restartGame);
 }
 
 function boardSetup(board) {
@@ -27,7 +27,7 @@ function boardSetup(board) {
 function squareClick(clickEvent){
     var clickedSquare = clickEvent.target;
     
-    if (activegame ==true ){
+    if (activegame ==true){
 
         clickedSquare.classList.add(activeplayer);
         clickedSquare.textContent=activeplayer;
@@ -110,7 +110,7 @@ function checkWin(){
 
    //end of vertical 
       
-    //diagional
+    //diagonal
     if((document.getElementById(0).textContent=="X") && (document.getElementById(4).textContent=="X") && (document.getElementById(8).textContent=="X") || (document.getElementById(0).textContent=="O") && (document.getElementById(4).textContent=="O") && (document.getElementById(8).textContent=="O")) {
         winMessage();
         return true
@@ -119,7 +119,7 @@ function checkWin(){
     if((document.getElementById(2).textContent=="X") && (document.getElementById(4).textContent=="X") && (document.getElementById(6).textContent=="X")||(document.getElementById(2).textContent=="O") && (document.getElementById(4).textContent=="O") && (document.getElementById(6).textContent=="O")){
         winMessage();
         return true;
-    }// end of digional code 
+    }// end of diagonal code 
 
 
   if (tracker.length==8){
@@ -144,7 +144,6 @@ function restartGame(){
         squareInfo[i].classList.remove('X');
         squareInfo[i].classList.remove('O');
         squareInfo[i].textContent="";
-       // console.log(squareInfo)
     }
 
     var restartMessage= document.getElementById('status');
